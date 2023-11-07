@@ -30,7 +30,13 @@ class ManageUser_model {
         $this->stmt = $this->dsn->prepare('SELECT * FROM user');
         $this->stmt->execute();
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-
     }
+
+    public function deleteUser($id_user) {
+        $stmt = $this->dsn->prepare("DELETE FROM user WHERE id_user = ?");
+        return $stmt->execute([$id_user]);
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>

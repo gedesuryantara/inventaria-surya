@@ -4,6 +4,7 @@ class Admindashboard extends Controller{
     {
         $data['judul'] = 'Manage User';
         $data['UserName'] = $this->model('ManageUser_model')->getAllUser();
+        // $data['id_user'] = $this->model('ManageUser_model')->getAllUser();
         $this->view('tamplates/header', $data);
         $this->view('Admindashboard/index',$data);
         $this->view('tamplates/footer');
@@ -15,6 +16,33 @@ class Admindashboard extends Controller{
         $this->view('tamplates/header', $data);
         $this->view('Admindashboard/useredit');
         $this->view('tamplates/footer');
+    }
+    public function parseURL()
+    {
+        if( isset($_GET['url']) ) {
+            $url = rtrim($_GET['url'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+            return $url;
+        }
+    }
+    public function deleteuser(){
+        $url = $this->parseURL();
+        $id_user = $url[2];
+        $success = $this->model('ManageUser_model')->deleteUser($id_user);
+        if ($success) {
+            echo "<script>
+            alert('User deleted successfully!');
+            window.location.href = '/inventaria/public/Admindashboard/';
+            </script>
+            ";
+        } else {
+            // Handle errors
+            echo "<script>
+            alert('Failed to delete user');
+            </script>
+            ";
+        }
     }
 
     public function adduser() {

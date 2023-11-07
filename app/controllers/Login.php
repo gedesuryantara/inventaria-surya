@@ -4,20 +4,20 @@ class Login extends Controller{
     
     public function index()
     {
-        $_SESSION['status'] = [];
+        // $_SESSION['status'] = [];
 
-        session_start();
+        // session_start();
 
-        if (!empty($_SESSION['status'])){
+        // if (!empty($_SESSION['status'])){
 
-            if($_SESSION['status'] == 1){
-                header('location: '. BASEURL . '/manageuser');
+        //     if($_SESSION['status'] == 1){
+        //         header('location: '. BASEURL . '/manageuser');
 
-            }else if($_SESSION['status'] == 2){
-                header('location: '. BASEURL . '/dashboard');
+        //     }else if($_SESSION['status'] == 2){
+        //         header('location: '. BASEURL . '/dashboard');
 
-            }
-        }   
+        //     }
+        // }   
         $data['judul'] = 'Login';
         $this->view('tamplates/headerlogin', $data);
         $this->view('login/index', $data);

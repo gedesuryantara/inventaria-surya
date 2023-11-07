@@ -87,7 +87,7 @@
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                     Edit
                                                 </a>
-                                                <a class="btn btn-danger ms-2 text-center" href="#" role="button">
+                                                <a class="btn btn-danger ms-2 text-center" href="<?= BASEURL ?>/admindashboard/deleteuser/<?= $usr['id_user']?>" role="button">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                     Hapus
                                                 </a>
