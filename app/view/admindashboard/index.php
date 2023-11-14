@@ -50,12 +50,12 @@
                 <div class="navbar-design shadow">
                     <div class="d-flex justify-content-between">
                         <div class="col-6">
-                            <div class="input-group search-layout">
-                                <input type="text" class="form-control" placeholder="Search..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                                <button class=" btn-search btn btn-primary" type="button" id="button-addon2">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </button>
-                            </div>
+                                <Form class="input-group search-layout" action="<?= BASEURL ?>/admindashboard/search" method="post">
+                                    <input type="text" class="form-control" placeholder="Search..." aria-label="Recipient's username" name="username" aria-describedby="button-addon2">
+                                    <button class=" btn-search btn btn-primary" type="button" id="button-addon2">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </Form>
                         </div>
                         <div class="col-6">
                             <div class="d-flex justify-content-end profile-layout">
@@ -70,7 +70,6 @@
                 <!-- Users Card Design -->
                 <div class="user-card-design">
                     <div class="row row-cols-1 row-cols-md-2 g-4">
-
                         <?php foreach( $data['UserName'] as $usr ) : ?>
                         <div class="col">
                             <div class="card mb-3 shadow">
@@ -83,11 +82,11 @@
                                             <h5 class="card-title text-center"><?= $usr['username']; ?> </h5>
                                             <hr>
                                             <div class="d-flex card-btn justify-content-center mt-4">
-                                                <a class="btn btn-warning me-2 text-center" href="<?= BASEURL ?>/admindashboard/useredit" role="button">
+                                                <a class="btn btn-warning me-2 text-center" href="<?= BASEURL ?>/admindashboard/useredit/<?= $usr['id_user']?>" role="button">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                     Edit
                                                 </a>
-                                                <a class="btn btn-danger ms-2 text-center" href="<?= BASEURL ?>/admindashboard/deleteuser/<?= $usr['id_user']?>" role="button">
+                                                <a class="btn btn-danger ms-2 text-center" onclick="return confirm('Apakah user akan di hapus')" href="<?= BASEURL ?>/admindashboard/deleteuser/<?= $usr['id_user']?>" role="button">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                     Hapus
                                                 </a>
@@ -108,17 +107,30 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                           <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                            </a>
+                            <?php if ($data['activepage'] > 1) : ?>
+                                <a class="page-link" href="/inventaria/public/Admindashboard/" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            <?php endif; ?>
                           </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
-                            </a>
+                            <?php for( $i = 1; $i <= $data['jumlahHalaman']; $i++ ) : ?>
+	                            <?php if( $i == $data['activepage'] ) : ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="/inventaria/public/Admindashboard/<?= $i; ?>"><?= $i; ?></a>
+                                    <li class="page-item">
+                                </li>
+	                            <?php else : ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="/inventaria/public/Admindashboard/<?= $i; ?>"><?= $i; ?></a>
+                                        <li class="page-item">
+                                    </li>
+	                            <?php endif; ?>
+                            <?php endfor; ?>
+                            <?php if ($data['activepage'] < $data['jumlahHalaman']) : ?>
+                                <a class="page-link" href="/inventaria/public/Admindashboard/" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            <?php endif; ?>
                           </li>
                         </ul>
                     </nav>
